@@ -1,7 +1,5 @@
-// Pointer finger to draw or pick color; flat "stop" hand to move pointer.  If it's having trouble tracking your finger, either change your background or try including your middle finger with your pointer finger.
 //Handpose code by the ml5.js team.  Visit https://ml5js.org/
 // Drawing code by Steve's Makerspace; Video: https://youtu.be/96sWFP9CCkQ
-
 let handpose;
 let video;
 let predictions = [];
@@ -21,8 +19,6 @@ console.log('ml5 version:', ml5.version);
 function setup(){
 	createCanvas(400, 400);
 	background(150, 220, 200)
-    textSize(width / 3);
-	textAlign(CENTER, CENTER);
     canvas2 = createGraphics(width, height);
   makesquares();
   video = createCapture(VIDEO);
@@ -36,7 +32,17 @@ function setup(){
   });
   // Hide the video element, and just show the canvas
     video.hide();
+image(video, 0, 0, width, height);
+  image(canvas2, 0, 0);
+    // Hide the video element, and just show the canvas
+    video.hide();	
+   background(150, 220, 200);
+    strokeWeight(0);
+    translate(width, 0);
+    scale(-1, 1);
+  //  background(0);
 
+ 
 }
 
 function modelReady() {
@@ -44,24 +50,10 @@ function modelReady() {
 }
 
 function draw(){
-	background(150, 220, 200);
-    strokeWeight(0);
-	text(ml5.version, width/2, height/2);
-    translate(width, 0);
-    scale(-1, 1);
-  //  background(0);
-
-  image(video, 0, 0, width, height);
-  image(canvas2, 0, 0);
-
-  
-  // We can call both functions to draw all keypoints and the skeletons
-  drawKeypoints();
-
-  //
+   //
   const c = color(255, 240, 20);
   fill(c);
-  square(100, 50, 45);
+  ellipse(100, 50, 45);
   
   rectMode(CENTER);
   fill(250, 120, 200);
@@ -107,8 +99,12 @@ function draw(){
   point(150,50);
   point(100,50);
   
+    // We can call both functions to draw all keypoints and the skeletons
+  drawKeypoints(20);
+  fill(250,120,200);
+  
+  
 }
-
 // A function to draw ellipses over the detected keypoints
 function drawKeypoints() {
   for (let i = 0; i < predictions.length; i += 1) {
@@ -157,9 +153,9 @@ function drawKeypoints() {
         }
         
         if (pointerY > 70 && pointerY < 140) {
-          colr = 0;
+          colr = 250;
           colg = 255;
-          colb = 0;
+          colb = 200;
         }
         if (pointerY > 140 && pointerY < 210) {
           colr = 0;
@@ -217,7 +213,7 @@ function makesquares() {
   canvas2.ellipse(width, 170, -70, 70);
   canvas2.fill(0, 0, 0);
   canvas2.rect(width, 210, -70, 70);
-  canvas2.stroke(255, 0, 0);
+  canvas2.stroke(0, 0, 0);
   canvas2.strokeWeight(10);
   canvas2.line(width - 5, 215, width - 65, 275);
 }
